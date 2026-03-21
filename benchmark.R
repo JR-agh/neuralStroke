@@ -11,11 +11,11 @@ microbenchmark(raw = raw(X, X),
 			   gpu = raw(XGPU, XGPU),
 			   times = 1000)
 
-LemuMax <- function(x) {
+relu_max <- function(x) {
 	return(max(0, x))
 }
 
-LemuIf <- function(x) {
+relu_if <- function(x) {
 	if(x > 0)
 		return(x)
 	else
@@ -23,10 +23,10 @@ LemuIf <- function(x) {
 }
 
 x <- -100:100
-microbenchmark(max = sapply(x, LemuMax),
-			   if_ = sapply(x, LemuIf),
+microbenchmark(max = sapply(x, relu_max),
+			   if_ = sapply(x, relu_if),
 			    times = 1e5)
 
-microbenchmark(if_ = sapply(x, LemuIf),
+microbenchmark(if_ = sapply(x, relu_if),
 			   sigmoid = sapply(x, sigmoid),
 			   times = 1e5)
