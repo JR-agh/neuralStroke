@@ -25,14 +25,8 @@ Xdf <- as.data.frame(lapply(Xdf, min_max_scale))
 X <- as.matrix(Xdf)
 y <- as.matrix(Ydf)
 
-#load model weights
-load("./data/weightsData.RData")
-#learning model
-weightsData <- neural_learn(X, y, hidden_nodes = 12, epochs = 500, init = TRUE, freq = 100)
-#save new model weights
-save(weightsData, file = "./data/weightsData.RData")
-#learning model with 2 hidden layers
-weightsData2 <- neural_network_2(X, y, h1_nodes = 8, h2_nodes = 4, epochs = 500, freq = 100, init = TRUE)
+#machine learning
+weights_data <- neural_learn(X, y, layers = 1, h1_nodes = 10, epochs = 500)
 
 #creating plot to display comparision between neural networks
 MSEdf <- data.frame(mse1 = weightsData$mse,
