@@ -1,4 +1,4 @@
-neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, learning_rate, freq) {
+neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, learning_rate, freq, activation_function) {
 	input_nodes <- ncol(X)
 	n <- nrow(X)
 	Vmse <- c()

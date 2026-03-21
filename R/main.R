@@ -29,9 +29,7 @@ y <- as.matrix(Ydf)
 weights_data <- neural_learn(X, y, layers = 1, h1_nodes = 10, epochs = 500)
 
 #creating plot to display comparision between neural networks
-MSEdf <- data.frame(mse1 = weightsData$mse,
-					mse2 = weightsData2$mse)
+MSEdf <- data.frame(mse = weights_data$mse)
 print(MSEdf)
-ggplot(MSEdf, aes(x = 1:5, y = mse1)) +
-	geom_line() +
-	geom_line(aes(x = 1:5, y = mse2, color = "red"))
+ggplot(MSEdf, aes(x = 1:5, y = mse)) +
+	geom_line()
