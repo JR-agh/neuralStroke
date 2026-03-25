@@ -32,6 +32,12 @@ linear_derivative <- function(x) {
 	1
 }
 
+#tanh in base R
+
+tanh_derivative <- function(x) {
+	1 - tanh(x)^2
+}
+
 relu_leak <- function(x) {
 	if(x >= 0)
 		x
