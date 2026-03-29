@@ -26,7 +26,10 @@ X <- as.matrix(Xdf)
 y <- as.matrix(Ydf)
 
 #machine learning
-weights_data <- neural_learn(X, y, layers = 1, h1_nodes = 10, epochs = 500)
+weights_data_l1_h10_e500 <- neural_learn(X, y, layers = 1, h1_nodes = 10, epochs = 500,
+										 activation_function = sigmoid)
+weights_data_l2_h6_h4_e500 <- neural_learn(X, y, layers = 2, h1_nodes = 6, h2_nodes = 4, epochs = 500,
+										   activation_function = sigmoid)
 
 #creating plot to display comparision between neural networks
 MSEdf <- data.frame(mse = weights_data$mse)
