@@ -3,12 +3,7 @@ min_max_scale <- function(x) {
 }
 
 normalize <- function(x) {
-	mu <- mean(x)
-	sigma <- sd(x)
-
-	z <- (x - mu) / sigma
-
-	return(z)
+	((x - mean(x)) / sd(x))
 }
 
 sigmoid <- function(x) {
