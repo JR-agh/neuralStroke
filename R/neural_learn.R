@@ -13,7 +13,7 @@ neural_learn <- function(X, y, layers, h1_nodes, h2_nodes = 4, epochs, init = TR
 	}
 	else {
 		if(!init)
-			load(paste0("./data/weights_data", h1_nodes, h2_nodes, ".RData"))
+			load(paste0("./data/weights_data", h1_nodes, "_", h2_nodes, ".RData"))
 		weights_data <- neural_network_2(X = X,
 						y = y,
 						h1_nodes = h1_nodes,
@@ -22,7 +22,7 @@ neural_learn <- function(X, y, layers, h1_nodes, h2_nodes = 4, epochs, init = TR
 						init = init,
 						learning_rate = learning_rate,
 						freq = freq)
-		save(weights_data, file = paste0("./data/weights_data", h1_nodes, h2_nodes, ".RData"))
+		save(weights_data, file = paste0("./data/weights_data", h1_nodes, "_", h2_nodes, ".RData"))
 	}
 	return(weights_data)
 }
