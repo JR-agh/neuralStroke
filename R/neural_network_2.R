@@ -1,4 +1,4 @@
-neural_network_2 <- function(X, y, h1_nodes, h2_nodes, epochs, init, output_nodes = 1, learning_rate, freq, activation_function) {
+neural_network_2 <- function(X, y, h1_nodes, h2_nodes, epochs, init, output_nodes = 1, learning_rate, freq, activation_function, activation_function_derivative) {
 	input_nodes <- ncol(X)
 	n <- nrow(X)
 	Vmse <- c()
@@ -17,24 +17,24 @@ neural_network_2 <- function(X, y, h1_nodes, h2_nodes, epochs, init, output_node
 	for (i in 1:epochs) {
 		# Forward
 		h1_input <- X %*% weights_0_1 + matrix(rep(bias_h1, n), byrow = TRUE, nrow = n)
-		h1_output <- sigmoid(h1_input)
+		h1_output <- activation_function(h1_input)
 
 		h2_input <- h1_output %*% weights_1_2 + matrix(rep(bias_h2, n), byrow = TRUE, nrow = n)
-		h2_output <- sigmoid(h2_input)
+		h2_output <- activation_function(h2_input)
 
 		# Warstwa wyjściowa
 		out_input <- h2_output %*% weights_2_3 + matrix(rep(bias_output, n), byrow = TRUE, nrow = n)
-		predicted_output <- sigmoid(out_input)
+		predicted_output <- activation_function(out_input)
 
 		# Error
 		error <- y - predicted_output
 
 		# Backpropagation
-		d_predicted_output <- error * sigmoid_derivative(predicted_output)
+		d_predicted_output <- error * activation_function_derivative(predicted_output)
 
-		d_h2 <- (tcrossprod(d_predicted_output, weights_2_3)) * sigmoid_derivative(h2_output)
+		d_h2 <- (tcrossprod(d_predicted_output, weights_2_3)) * activation_function_derivative(h2_output)
 
-		d_h1 <- (tcrossprod(d_h2, weights_1_2)) * sigmoid_derivative(h1_output)
+		d_h1 <- (tcrossprod(d_h2, weights_1_2)) * activation_function_derivative(h1_output)
 
 		# Weights actualization
 		weights_2_3 <- weights_2_3 + (crossprod(h2_output, d_predicted_output) * (learning_rate / n))
@@ -54,7 +54,7 @@ neural_network_2 <- function(X, y, h1_nodes, h2_nodes, epochs, init, output_node
 
 	final_predictions <- ifelse(predicted_output > 0.5, 1, 0)
 	cat("Accuracy:", mean(final_predictions == y) * 100, "%\n")
-	weightsData <- list(weights_1_2 = weights_1_2,
+	weights_data <- list(weights_1_2 = weights_1_2,
 						weights_0_1 = weights_0_1,
 						weights_2_3 = weights_2_3,
 						bias_output = bias_output,
@@ -62,5 +62,5 @@ neural_network_2 <- function(X, y, h1_nodes, h2_nodes, epochs, init, output_node
 						bias_h2 = bias_h1,
 						accuracy = (mean(final_predictions == y) * 100),
 						mse = Vmse)
-	return(weightsData)
+	return(weights_data)
 }

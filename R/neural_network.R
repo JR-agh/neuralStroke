@@ -1,4 +1,4 @@
-neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, learning_rate, freq, activation_function) {
+neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, learning_rate, freq, activation_function, activation_function_derivative) {
 	input_nodes <- ncol(X)
 	n <- nrow(X)
 	Vmse <- c()
@@ -19,15 +19,15 @@ neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, l
 
 	for (i in 1:epochs) {
 		# Forward
-		hidden_layer_output <- sigmoid(X %*% weights_0_1 + matrix(rep(bias_hidden, nrow(X)), byrow = TRUE, nrow = n))
-		predicted_output <- sigmoid(hidden_layer_output %*% weights_1_2 + matrix(rep(bias_output, nrow(X)), byrow = TRUE, nrow = n))
+		hidden_layer_output <- activation_function(X %*% weights_0_1 + matrix(rep(bias_hidden, nrow(X)), byrow = TRUE, nrow = n))
+		predicted_output <- activation_function(hidden_layer_output %*% weights_1_2 + matrix(rep(bias_output, nrow(X)), byrow = TRUE, nrow = n))
 
 		# Error
 		error <- y - predicted_output
 
 		# Backprop
-		d_predicted_output <- error * sigmoid_derivative(predicted_output)
-		d_hidden_layer <- (tcrossprod(d_predicted_output, weights_1_2)) * sigmoid_derivative(hidden_layer_output)
+		d_predicted_output <- error * activation_function_derivative(predicted_output)
+		d_hidden_layer <- (tcrossprod(d_predicted_output, weights_1_2)) * activation_function_derivative(hidden_layer_output)
 
 		# Weights actualization
 		weights_1_2 <- weights_1_2 + (crossprod(hidden_layer_output, d_predicted_output) * (learning_rate / n))
@@ -45,11 +45,11 @@ neural_network <- function(X, y, hidden_nodes, epochs, init, output_nodes = 1, l
 
 	final_predictions <- ifelse(predicted_output > 0.5, 1, 0)
 	cat("Accuracy:", mean(final_predictions == y) * 100, "%\n")
-	weightsData <- list(weights_1_2 = weights_1_2,
+	weights_data <- list(weights_1_2 = weights_1_2,
 						weights_0_1 = weights_0_1,
 						bias_output = bias_output,
 						bias_hidden = bias_hidden,
 						accuracy = (mean(final_predictions == y) * 100),
 						mse = Vmse)
-	return(weightsData)
+	return(weights_data)
 }
