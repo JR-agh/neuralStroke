@@ -1,0 +1,52 @@
+min_max_scale <- function(x) {
+	(x - min(x)) / (max(x) - min(x))
+}
+
+normalize <- function(x) {
+	((x - mean(x)) / sd(x))
+}
+
+sigmoid <- function(x) {
+	1 / (1 + exp(-x))
+}
+
+sigmoid_derivative <- function(x) {
+	x * (1 - x)
+}
+
+relu <- function(x) {
+	ifelse(x > 0, x, 0)
+}
+
+relu_derivative <- function(x) {
+	ifelse(x > 0, 1, 0)
+}
+
+linear <- function(x) {
+	x
+}
+
+linear_derivative <- function(x) {
+	1
+}
+
+#tanh in base R
+
+tanh_derivative <- function(x) {
+	1 - tanh(x)^2
+}
+
+relu_leak <- function(x) {
+	ifelse(x >= 0, x, 0.1*x)
+}
+
+relu_leak_derivative <- function(x) {
+	ifelse(x >= 0, 1, 0.1)
+}
+
+get_act_name <- function(func) {
+	if (identical(func, sigmoid)) return("sigm")
+	if (identical(func, tanh)) return("tanh")
+	if (identical(func, relu)) return("relu")
+	return("leak")
+}
