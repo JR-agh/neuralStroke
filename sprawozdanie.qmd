@@ -57,11 +57,7 @@ Normalizacja do rozkładu normalnego o parametrach $\mu = 0$ i $\sigma = 1$ okaz
 
 ## Wybór danych wejściowych
 
-Przeanalizowano, jak wybór różnych danych wejściowych wpływa na dokładność przewidywań sieci neuronowej. Wybrane dane wejściowe to:
-1. Class, online boarding, seat comfort, inflight entertainment i on board service
-2. Departure arrival time convenient, departure delay in minutes, gender, age i gate location
-3. Gender, class, ease of online booking, age i food and drink
-4. Departure delay in minutes, seat comfort, food and drink, class i flight distance
+Przeanalizowano, jak wybór różnych danych wejściowych wpływa na dokładność przewidywań sieci neuronowej. Wybrane dane wejściowe to: 1. Class, online boarding, seat comfort, inflight entertainment i on board service 2. Departure arrival time convenient, departure delay in minutes, gender, age i gate location 3. Gender, class, ease of online booking, age i food and drink 4. Departure delay in minutes, seat comfort, food and drink, class i flight distance
 
 Zestawy te zostały wybrane według następujących kryteriów: 1. zestaw zawiera najbardziej skorelowane kolumny, 2. najmniej skorelowane, 3. zawiera losowe, a 4. zawiera te, które logicznie wydają się mieć najwyższy wpływ na satysfakcję z lotu w naszej ocenie.
 
@@ -86,3 +82,4 @@ W celu walidacji poprawności własnego algorytmu, wyniki zestawiono z profesjon
 Dokładność osiągnięta przez neuralnet wyniosła $87.31$%, co jest wynikiem wyższym niż $85.74$%, czyli najlepszym wynikiem uzyskanym przez własnoręcznie napisaną sieć neuronową.
 
 # Podsumowanie
+
