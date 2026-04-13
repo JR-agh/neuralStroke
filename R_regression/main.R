@@ -174,7 +174,59 @@ results <- rbind(results, cbind(Param="many_params", Val=2, do_test(0.8, 1, 16, 
 plot_best_model("R_regression/data/weights_L1_H1-16_H2-4_E5000_LR0.1_I1_SP0.8_relu.RData", dane_raw, 1, 0.8, relu)
 plot_best_model("R_regression/data/weights_L1_H1-16_H2-4_E5000_LR0.3_I1_SP0.8_relu.RData", dane_raw, 1, 0.8, relu)
 
+save(results, file = "./R_regression/data/results.RData")
 
 
+
+# 1. Przygotowanie danych i sortowanie (identycznie jak wcześniej)
+results_plot <- results %>%
+	mutate(
+		Val = as.character(Val),
+		Val_num = suppressWarnings(as.numeric(Val))
+	) %>%
+	arrange(Param, Val_num, Val)
+
+# Tworzymy folder na wykresy, jeśli nie istnieje
+if (!dir.exists("./R_regression/plots")) dir.create("./R_regression/plots")
+
+# 2. Pętla generująca osobne wykresy
+unique_params <- unique(results_plot$Param)
+
+for (p in unique_params) {
+
+	# Filtrujemy dane tylko dla konkretnego parametru
+	df_sub <- results_plot %>%
+		filter(Param == p) %>%
+		mutate(Val = factor(Val, levels = unique(Val))) # Zamrożenie kolejności X
+
+	# Tworzymy wykres
+	plt <- ggplot(df_sub, aes(x = Val, y = Test_MAPE_pct, fill = Param)) +
+		stat_summary(fun = mean, geom = "bar", alpha = 0.8) +
+		stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+		theme_minimal() +
+		labs(
+			title = paste("Wpływ parametru:", p),
+			subtitle = "Średnia MAPE z błędami standardowymi",
+			x = "Wartość",
+			y = "MAPE [%]"
+		) +
+		theme(legend.position = "none")
+
+	# Opcja A: Wyświetlenie w oknie (jeśli używasz RStudio, pokaże się w 'Plots')
+	print(plt)
+
+	# Opcja B: Zapis do pliku (wygodne do sprawozdania)
+	file_name <- paste0("./R_regression/plots/wykres_", p, ".png")
+	ggsave(file_name, plot = plt, width = 8, height = 5, dpi = 300)
+
+	cat("Zapisano:", file_name, "\n")
+}
+
+options(scipen = 100)
+
+results %>%
+	filter(Param == "H1_Nodes") %>%
+	arrange(Test_MAPE_pct) %>%
+	write.table("clipboard", sep="\t", row.names=FALSE)
 
 
