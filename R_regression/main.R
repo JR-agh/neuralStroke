@@ -178,7 +178,6 @@ save(results, file = "./R_regression/data/results.RData")
 
 
 
-# 1. Przygotowanie danych i sortowanie (identycznie jak wcześniej)
 results_plot <- results %>%
 	mutate(
 		Val = as.character(Val),
@@ -186,20 +185,17 @@ results_plot <- results %>%
 	) %>%
 	arrange(Param, Val_num, Val)
 
-# Tworzymy folder na wykresy, jeśli nie istnieje
+
 if (!dir.exists("./R_regression/plots")) dir.create("./R_regression/plots")
 
-# 2. Pętla generująca osobne wykresy
+
 unique_params <- unique(results_plot$Param)
 
 for (p in unique_params) {
-
-	# Filtrujemy dane tylko dla konkretnego parametru
 	df_sub <- results_plot %>%
 		filter(Param == p) %>%
-		mutate(Val = factor(Val, levels = unique(Val))) # Zamrożenie kolejności X
+		mutate(Val = factor(Val, levels = unique(Val)))
 
-	# Tworzymy wykres
 	plt <- ggplot(df_sub, aes(x = Val, y = Test_MAPE_pct, fill = Param)) +
 		stat_summary(fun = mean, geom = "bar", alpha = 0.8) +
 		stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
@@ -212,10 +208,8 @@ for (p in unique_params) {
 		) +
 		theme(legend.position = "none")
 
-	# Opcja A: Wyświetlenie w oknie (jeśli używasz RStudio, pokaże się w 'Plots')
 	print(plt)
 
-	# Opcja B: Zapis do pliku (wygodne do sprawozdania)
 	file_name <- paste0("./R_regression/plots/wykres_", p, ".png")
 	ggsave(file_name, plot = plt, width = 8, height = 5, dpi = 300)
 
