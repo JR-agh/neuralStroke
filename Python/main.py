@@ -1,4 +1,3 @@
-# 1. n_estimators
 import pandas as pd
 import yfinance as yf
 import numpy as np
@@ -124,11 +123,6 @@ rf_c_df = rf_c_df.round({'accuracy[%]': 2})
 rf_c_df.to_csv('Python/wyniki/RandomForestClassification.csv', index=False)
 
 # Regresja - Random Forest
-
-wyniki_trees = []
-wyniki_depth = []
-wyniki_split = []
-wyniki_leaf  = []
 
 wyniki_trees = []
 wyniki_depth = []
