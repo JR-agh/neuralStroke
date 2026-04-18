@@ -2,6 +2,10 @@ min_max_scale <- function(x) {
 	(x - min(x)) / (max(x) - min(x))
 }
 
+div_max <- function(x){
+	x/max(x)
+}
+
 normalize <- function(x) {
 	((x - mean(x)) / sd(x))
 }
@@ -15,17 +19,11 @@ sigmoid_derivative <- function(x) {
 }
 
 relu <- function(x) {
-	if(x > 0)
-		x
-	else
-		0
+	ifelse(x > 0, x, 0)
 }
 
 relu_derivative <- function(x) {
-	if(x > 0)
-		1
-	else
-		0
+	ifelse(x > 0, 1, 0)
 }
 
 linear <- function(x) {
