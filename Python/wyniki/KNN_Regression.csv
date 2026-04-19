@@ -9,6 +9,6 @@ n_neighbors,weights,p,scaler,mae,rmse,mape[%]
 10,uniform,2,-,35.25,46.71,59.98
 10,uniform,3,-,35.25,46.71,59.98
 10,uniform,1,Standard,3.56,6.19,7.34
-10,uniform,1,MinMax,1.81,2.58,2.69
+10,uniform,1,MinMax,1.81,1.58,1.69
 10,uniform,1,Robust,2.25,3.64,3.68
 10,uniform,1,None,35.14,46.68,59.81
