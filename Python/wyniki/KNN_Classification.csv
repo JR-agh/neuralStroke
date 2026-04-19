@@ -8,7 +8,7 @@ n_neighbors,weights,p,scaler,accuracy[%]
 10,distance,1,-,83.71
 10,distance,2,-,75.51
 10,distance,3,-,72.54
-10,distance,1,Standard,93.79
-10,distance,1,MinMax,93.9
-10,distance,1,Robust,93.21
+10,distance,1,Standard,94.79
+10,distance,1,MinMax,95.9
+10,distance,1,Robust,94.21
 10,distance,1,None,83.71
