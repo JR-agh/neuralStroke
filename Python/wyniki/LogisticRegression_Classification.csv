@@ -9,7 +9,7 @@ C,solver,max_iter,scaler,accuracy[%],poly_degree
 1.0,saga,-,-,85.01,
 1.0,lbfgs,,-,87.19,1.0
 1.0,lbfgs,,-,86.99,2.0
-1.0,lbfgs,,Standard,87.16,1.0
+1.0,lbfgs,,Standard,89.16,1.0
 1.0,lbfgs,,MinMax,87.12,1.0
 1.0,lbfgs,,Robust,87.17,1.0
-1.0,lbfgs,,None,90.19,1.0
+1.0,lbfgs,,None,87.19,1.0
